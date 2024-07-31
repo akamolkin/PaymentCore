@@ -36,6 +36,10 @@ public class Product {
         return type;
     }
 
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     @Override
     public String toString() {
         return "Product{" +

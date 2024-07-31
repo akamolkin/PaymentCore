@@ -20,16 +20,8 @@ public class PaymentService {
     }
 
     public PayRespDto execPay(PayReqDto payReq) {
-        ProductDto productDto = getProductById(payReq.productId());
-        double oldBalance = productDto.balance();
-        if (oldBalance == 0 || payReq.sumPay() > oldBalance) {
-            throw new BadReqException("Not enough funds! product = " + productDto.id() + " balance = " + oldBalance);
-        }
-        double newBalance = oldBalance - payReq.sumPay();
-        ProductDto productDtoNew = new ProductDto(productDto.id(), productDto.userId(), productDto.accountNumber(), newBalance, productDto.type());
-        productDtoNew = restTemplate.postForObject("/updateProduct", productDtoNew, ProductDto.class);
-
-        PayRespDto payResp = new PayRespDto(productDto.id(), oldBalance, newBalance, "DONE");
+        PayRespDto payResp = restTemplate.postForObject("/execPay", payReq, PayRespDto.class);
+        if (payResp.errorCode() != 0) throw new BadReqException(payResp.answer());
         return payResp;
     }
 }

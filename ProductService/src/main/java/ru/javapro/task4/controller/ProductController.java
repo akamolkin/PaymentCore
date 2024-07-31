@@ -2,6 +2,8 @@ package ru.javapro.task4.controller;
 
 import org.springframework.web.bind.annotation.*;
 import ru.javapro.task4.dto.AppRespDto;
+import ru.javapro.task4.dto.PayReqDto;
+import ru.javapro.task4.dto.PayRespDto;
 import ru.javapro.task4.entity.Product;
 import ru.javapro.task4.dto.ProductListRespDto;
 import ru.javapro.task4.service.ProductService;
@@ -33,6 +35,11 @@ public class ProductController {
     @PostMapping(value = "/updateProduct")
     public Product updateProduct(@RequestBody Product product){
         return productService.updateProduct(product);
+    }
+
+    @PostMapping("/execPay")
+    public PayRespDto execPay(@RequestBody PayReqDto payReq){
+        return productService.execPay(payReq);
     }
 
 }
