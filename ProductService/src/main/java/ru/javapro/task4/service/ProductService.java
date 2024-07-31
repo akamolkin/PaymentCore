@@ -2,6 +2,8 @@ package ru.javapro.task4.service;
 
 import org.springframework.stereotype.Service;
 import ru.javapro.task4.dao.ProductDao;
+import ru.javapro.task4.dto.PayReqDto;
+import ru.javapro.task4.dto.PayRespDto;
 import ru.javapro.task4.dto.ProductListRespDto;
 import ru.javapro.task4.dto.AppRespDto;
 import ru.javapro.task4.dao.UserDao;
@@ -48,5 +50,19 @@ public class ProductService {
         if (user == null) throw new BadReqException("User not found with id " + product.getUserId());
         int result = productDao.updateProduct(product);
         return product;
+    }
+
+    public PayRespDto execPay(PayReqDto payReq) {
+        Product product = getProductById(payReq.productId());
+        double oldBalance = product.getBalance();
+        if (oldBalance == 0 || payReq.sumPay() > oldBalance) {
+            return new PayRespDto(product.getId(), oldBalance, oldBalance, 1, "Not enough funds! product = " + product.getId() + " balance = " + oldBalance);
+            //throw new BadReqException("Not enough funds! product = " + product.getId() + " balance = " + oldBalance);
+        }
+        double newBalance = oldBalance - payReq.sumPay();
+        product.setBalance(newBalance);
+        int result = productDao.updateProduct(product);
+        if (result == 1) return new PayRespDto(product.getId(), oldBalance, newBalance, 0, "DONE");
+        throw new BadReqException("Update error! product = " + product.getId() + " balance = " + oldBalance);
     }
 }
