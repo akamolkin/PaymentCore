@@ -16,7 +16,8 @@
 	<description>Integration project</description>
 	<modules>
 		<module>ProductService</module>
-	</modules>
+        <module>PaymentsService</module>
+    </modules>
 
 	<properties>
 		<maven.compiler.source>21</maven.compiler.source>
