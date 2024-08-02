@@ -29,14 +29,6 @@ public class Product {
     @JoinColumn(name = "product_type_id")
     private ProductType type;
 
-//    public Product(long id, long userId, String accountNumber, double balance, String type) {
-//        this.id = id;
-//        this.userId = userId;
-//        this.accountNumber = accountNumber;
-//        this.balance = balance;
-//        this.type = ProductType.valueOf(type);
-//    }
-
     @Override
     public String toString() {
         return "Product{" +

@@ -25,7 +25,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "ru.javapro.task4.entity.User{" +
+        return "User{" +
                 "id=" + id +
                 ", username='" + userName + '\'' +
                 '}';
