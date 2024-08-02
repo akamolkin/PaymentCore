@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/addUser")
-    public AppRespDto addUser(@RequestBody User user){
-        return userService.addUser(user.getUsername());
+    public User addUser(@RequestBody User user){
+        return userService.addUser(user.getUserName());
     }
 }

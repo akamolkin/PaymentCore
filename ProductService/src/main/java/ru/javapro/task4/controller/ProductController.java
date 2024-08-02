@@ -1,11 +1,8 @@
 package ru.javapro.task4.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.javapro.task4.dto.AppRespDto;
-import ru.javapro.task4.dto.PayReqDto;
-import ru.javapro.task4.dto.PayRespDto;
+import ru.javapro.task4.dto.*;
 import ru.javapro.task4.entity.Product;
-import ru.javapro.task4.dto.ProductListRespDto;
 import ru.javapro.task4.service.ProductService;
 
 @RestController
@@ -28,13 +25,13 @@ public class ProductController {
     }
 
     @PostMapping(value = "/addProduct")
-    public AppRespDto addProduct(@RequestBody Product product){
-        return productService.addProduct(product);
+    public Product addProduct(@RequestBody ProductReqDto productReq){
+        return productService.addProduct(productReq);
     }
 
     @PostMapping(value = "/updateProduct")
-    public Product updateProduct(@RequestBody Product product){
-        return productService.updateProduct(product);
+    public Product updateProduct(@RequestBody ProductReqDto productReq){
+        return productService.updateProduct(productReq);
     }
 
     @PostMapping("/execPay")
