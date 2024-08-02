@@ -1,27 +1,33 @@
 package ru.javapro.task4.entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Set;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
-    private String username;
 
-    public User(long id, String username) {
-        this.id = id;
-        this.username = username;
-    }
+    @Column(name = "username")
+    private String userName;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public long getId() {
-        return id;
-    }
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Product> products;
 
     @Override
     public String toString() {
-        return "ru.javapro.task4.entity.User{" +
+        return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", username='" + userName + '\'' +
                 '}';
     }
 }
